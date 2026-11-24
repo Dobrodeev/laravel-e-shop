@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Projects')
+@section('title', $title)
 
 @section('content')
 <main class="main">
@@ -8,7 +8,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="section__title col-lg-6 col-12">
-						Anastasia
+						{{ $title }}
 					</div>
 					<div class="sale__wrapper col-lg-6 col-12">
 
@@ -18,9 +18,10 @@
 								<img class="work_arrow" src="{{ asset('img/icon/chevron-down.svg') }}" alt="">
 							</div>
 							<div class="toggle__wrapper" >
-								<span>Anastasia</span>
-								<span>Anastasia</span>
-								<span>Anastasia</span>
+								<span><a href="{{ route('collection', request()->only('sort')) }}">All</a></span>
+								@foreach ($navCategories->concat($navCollections) as $navItem)
+									<span><a href="{{ route('category', [$navItem, ...request()->only('sort')]) }}">{{ $navItem->name }}</a></span>
+								@endforeach
 							</div>
 						</div>
 
@@ -30,92 +31,30 @@
 								<img class="work_arrow" src="{{ asset('img/icon/chevron-down.svg') }}" alt="">
 							</div>
 							<div class="toggle__wrapper" >
-								<span>New</span>
-								<span>Price: low to high</span>
-								<span>Price: high to low</span>
+								@foreach ($sorts as $key => [$label])
+									<span><a href="{{ request()->fullUrlWithQuery(['sort' => $key, 'page' => null]) }}">{{ $label }}</a></span>
+								@endforeach
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class=" row">
-					<div class="col-lg-4 col-md-6 col-12 sale__slider-item">
-						<div class="cart cart__middle">
-							<div class="cart__img">
-								<img src="{{ asset('img/cartmini.jpg') }}" alt="">
-								<span>SALE</span>
-							</div>
-							<div class="cart__title">
-								Necklace “Together in Paris” classic version
-							</div>
-							<div class="cart__price">
-								<div class="cart__count">
-									<div class="cart__sale">
-										<span>$51</span><span>$36</span>
-									</div>
-									<div class="cart__save">
-										Save Up To $15
-									</div>
-								</div>
-								<div class="cart__bag">
-									<img src="{{ asset('img/icon/plus.svg') }}" alt="">
-									<span>Add To Bag</span>
-								</div>
-							</div>
+					@forelse ($products as $product)
+						<div class="col-lg-4 col-md-6 col-12 sale__slider-item">
+							@include('partials.product-card', ['product' => $product, 'class' => 'cart__middle'])
 						</div>
-					</div>
-					<div class="col-lg-4 col-md-6 col-12 sale__slider-item">
-						<div class="cart cart__middle">
-							<div class="cart__img">
-								<img src="{{ asset('img/cartmini.jpg') }}" alt="">
-								<span>SALE</span>
-							</div>
-							<div class="cart__title">
-								Necklace “Together in Paris” classic version
-							</div>
-							<div class="cart__price">
-								<div class="cart__count">
-									<div class="cart__sale">
-										<span>$51</span><span>$36</span>
-									</div>
-									<div class="cart__save">
-										Save Up To $15
-									</div>
-								</div>
-								<div class="cart__bag">
-									<img src="{{ asset('img/icon/plus.svg') }}" alt="">
-									<span>Add To Bag</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-4 col-md-6 col-12 sale__slider-item">
-						<div class="cart cart__middle">
-							<div class="cart__img">
-								<img src="{{ asset('img/cartmini.jpg') }}" alt="">
-								<span>SALE</span>
-							</div>
-							<div class="cart__title">
-								Necklace “Together in Paris” classic version
-							</div>
-							<div class="cart__price">
-								<div class="cart__count">
-									<div class="cart__sale">
-										<span>$51</span><span>$36</span>
-									</div>
-									<div class="cart__save">
-										Save Up To $15
-									</div>
-								</div>
-								<div class="cart__bag">
-									<img src="{{ asset('img/icon/plus.svg') }}" alt="">
-									<span>Add To Bag</span>
-								</div>
-							</div>
-						</div>
-					</div>
-
+					@empty
+						<div class="col-12">No products yet.</div>
+					@endforelse
 				</div>
-			</div>		
+				@if ($products->hasPages())
+					<div class="row">
+						<div class="col-12">
+							{{ $products->links('pagination::bootstrap-4') }}
+						</div>
+					</div>
+				@endif
+			</div>
 		</section>
 		<section class="section instagram inspiration">
 			<div class="container">

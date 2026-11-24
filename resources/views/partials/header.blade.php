@@ -40,34 +40,19 @@
 					<div class="col-9">
 						<nav class="header__nav">
 							<ul class="header__list">
+								@foreach ($navCollections as $navItem)
+									<li class="header__list-item">
+										<a class="header__list-link" href="{{ route('category', $navItem) }}">{{ $navItem->name }}</a>
+									</li>
+								@endforeach
 								<li class="header__list-item">
-									<a class="header__list-link" href="#">Anastasia</a>
-								</li>
-								<li class="header__list-item">
-									<a class="header__list-link" href="#">Frozen</a>
-								</li>
-								<li class="header__list-item">
-									<a class="header__list-link" href="#">H₂0</a>
-								</li>
-								<li class="header__list-item">
-									<a class="header__list-link" href="#">raya and the last dragon</a>
-								</li>
-								<li class="header__list-item">
-									<a class="header__list-link" href="#">the swan princess</a>
-								</li>
-								<li class="header__list-item">
-									<a class="header__list-link" href="#">W.i.t.c.h.</a>
-								</li>
-								<li class="header__list-item">
-									<a class="header__list-link" href="#">winx club</a>
-								</li><li class="header__list-item">
-									<a class="header__list-link" href="#">sale</a>
+									<a class="header__list-link" href="{{ route('sale') }}">sale</a>
 								</li>
 							</ul>
 						</nav>
 					</div>
 					<div class="header__wrapp-btn col-3">
-						<a href="#" class="header__btn">shop by category <img src="{{ asset('img/icon/chevron-down.svg') }}" alt=""></a>
+						<a href="{{ route('collection') }}" class="header__btn">shop by category <img src="{{ asset('img/icon/chevron-down.svg') }}" alt=""></a>
 					</div>
 				</div>
 			</div>

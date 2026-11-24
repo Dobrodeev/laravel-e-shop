@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Projects')
+@section('title', $product->name)
 
 @section('content')
 <main class="main">
@@ -9,46 +9,49 @@
 				<div class="row">
 					<div class="col-lg-6">
 						<div class="product__img cart__img">
-							<img src="{{ asset('img/slide3.jpg') }}" alt="">
-							<span>SALE</span>
+							<img src="{{ asset($product->image ?? 'img/cartmini.jpg') }}" alt="{{ $product->name }}">
+							@if ($product->is_on_sale)
+								<span>SALE</span>
+							@endif
 						</div>
-						<div class="product__carousel owl-carousel">
-							<div class="item">
-								<img src="{{ asset('img/cartmini.jpg') }}" alt="">
+						@if ($product->images->isNotEmpty())
+							<div class="product__carousel owl-carousel">
+								@foreach ($product->images as $image)
+									<div class="item">
+										<img src="{{ asset($image->path) }}" alt="{{ $product->name }}">
+									</div>
+								@endforeach
 							</div>
-							<div class="item">
-								<img src="{{ asset('img/cartmini.jpg') }}" alt="">
-							</div>
-							<div class="item">
-								<img src="{{ asset('img/cartmini.jpg') }}" alt="">
-							</div>
-							<div class="item">
-								<img src="{{ asset('img/cartmini.jpg') }}" alt="">
-							</div>
-						</div>
+						@endif
 					</div>
 					<div class="col-lg-6">
 						<div class="product__title">
-							Odette necklace from “Swan princess” cartoon inspired
+							{{ $product->name }}
 						</div>
 						<div class="product__price">
-							<div class="product__price-sell">
-								$31
-							</div>
+							@if ($product->is_on_sale)
+								<div class="product__price-sell">
+									${{ (float) $product->old_price }}
+								</div>
+							@endif
 							<div class="product__price-last">
-								$22
+								${{ (float) $product->price }}
 							</div>
 						</div>
-						<div class="product__sale">
-							Save Up To $9
-						</div>
+						@if ($product->is_on_sale)
+							<div class="product__sale">
+								Save Up To ${{ (float) $product->discount }}
+							</div>
+						@endif
 						<div class="product__form">
 							<div class="product__conter">
 								<button>-</button>
 								<span>1</span>
 								<button>+</button>
 							</div>
-							<button class="btn btn__button">add to bag</button>
+							<button class="btn btn__button" @disabled($product->stock < 1)>
+								{{ $product->stock > 0 ? 'add to bag' : 'out of stock' }}
+							</button>
 						</div>
 						<div class="wrapper">
 							<div class="tabs_wrapp">
@@ -56,24 +59,13 @@
 								<div class="tab">reviews</div>
 							</div>
 							<div class="tab_content">
-								
+
 								<div class="tab_item">
-								<p>Every princess deserves to have her own talisman that will bring her happiness. </p>
-
-								<p>It doesn’t matter if you order this pendant for yourself or as a gift — it will be your best purchase either way! </p>
-
-								<p>We’ve created this pendant with our love for this magical story from our childhood and with respect for our own history and legacy: the pendant was designed and created in Russia. </p>
-
-								<p>From the cold and mysterious lands, it is eager to set out on a journey to its little princess for her to begin to live her true magical story in real life.</p>
-
-								<p>Imagine taking it in your hand. What do you feel? Excitement? Joy? </p>
-								
-								<p>The only thing that is true is that fairy tales are real, and you can be a part of them. Because, you are that lost princess this pendant is meant for, right?</p>
-
-								<p>This pendant looks absolutely amazing both as a prop item for a stunning cosplay and as a jewelry piece you can wear on a daily basis.  </p>
-
-								<a href="#">...read more</a>
-
+									@foreach (preg_split('/\R{2,}/', trim((string) $product->description)) as $paragraph)
+										@if ($paragraph !== '')
+											<p>{{ $paragraph }}</p>
+										@endif
+									@endforeach
 								</div>
 								<div class="tab_item">
 									<iframe width="100%" height="372" src="https://www.youtube.com/embed/AqdAtTu8Aes" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -84,114 +76,21 @@
 				</div>
 			</div>
 		</section>
-		<section class="section productList">
-			<div class="container">
-				<div class="row">
-					<div class="section__title col-12">
-						You may also like
-					</div>
-					<div class="col-lg-3">
-						<div class="cart">
-							<div class="cart__img">
-								<img src="{{ asset('img/cartmini.jpg') }}" alt="">
-								<span>SALE</span>
-							</div>
-							<div class="cart__title">
-								Necklace “Together in Paris” classic version
-							</div>
-							<div class="cart__price">
-								<div class="cart__count">
-									<div class="cart__sale">
-										<span>$51</span><span>$36</span>
-									</div>
-									<div class="cart__save">
-										Save Up To $15
-									</div>
-								</div>
-								<div class="cart__bag">
-									<img src="{{ asset('img/icon/plus.svg') }}" alt="">
-									<span>Add To Bag</span>
-								</div>
-							</div>
+		@if ($related->isNotEmpty())
+			<section class="section productList">
+				<div class="container">
+					<div class="row">
+						<div class="section__title col-12">
+							You may also like
 						</div>
-					</div>
-					<div class="col-lg-3">
-						<div class="cart">
-							<div class="cart__img">
-								<img src="{{ asset('img/cartmini.jpg') }}" alt="">
-								<span>SALE</span>
+						@foreach ($related as $item)
+							<div class="col-lg-3">
+								@include('partials.product-card', ['product' => $item])
 							</div>
-							<div class="cart__title">
-								Necklace “Together in Paris” classic version
-							</div>
-							<div class="cart__price">
-								<div class="cart__count">
-									<div class="cart__sale">
-										<span>$51</span><span>$36</span>
-									</div>
-									<div class="cart__save">
-										Save Up To $15
-									</div>
-								</div>
-								<div class="cart__bag">
-									<img src="{{ asset('img/icon/plus.svg') }}" alt="">
-									<span>Add To Bag</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-3">
-						<div class="cart">
-							<div class="cart__img">
-								<img src="{{ asset('img/cartmini.jpg') }}" alt="">
-								<span>SALE</span>
-							</div>
-							<div class="cart__title">
-								Necklace “Together in Paris” classic version
-							</div>
-							<div class="cart__price">
-								<div class="cart__count">
-									<div class="cart__sale">
-										<span>$51</span><span>$36</span>
-									</div>
-									<div class="cart__save">
-										Save Up To $15
-									</div>
-								</div>
-								<div class="cart__bag">
-									<img src="{{ asset('img/icon/plus.svg') }}" alt="">
-									<span>Add To Bag</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-3">
-						<div class="cart">
-							<div class="cart__img">
-								<img src="{{ asset('img/cartmini.jpg') }}" alt="">
-								<span>SALE</span>
-							</div>
-							<div class="cart__title">
-								Necklace “Together in Paris” classic version
-							</div>
-							<div class="cart__price">
-								<div class="cart__count">
-									<div class="cart__sale">
-										<span>$51</span><span>$36</span>
-									</div>
-									<div class="cart__save">
-										Save Up To $15
-									</div>
-								</div>
-								<div class="cart__bag">
-									<img src="{{ asset('img/icon/plus.svg') }}" alt="">
-									<span>Add To Bag</span>
-								</div>
-							</div>
-						</div>
+						@endforeach
 					</div>
 				</div>
-			</div>
-		</section>
+			</section>
+		@endif
 	</main>
 @endsection
