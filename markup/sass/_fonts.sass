@@ -1,0 +1,35 @@
+// font-weight helper:
+
+// 100 Extra Light or Ultra Light;
+// 200 Light or Thin; 300 Book or Demi;
+// 400 Regular or Normal;
+// 500 Medium;
+// 600 Semibold or Demibold;
+// 700 Bold;
+// 800 Black or Extra Bold or Heavy;
+// 900 Extra Black or Fat or Ultra Black
+
+
+@mixin font($f-name, $f-style, $f-weight, $f-url)
+	@font-face
+		font-family: $f-name
+		font-style: $f-style
+		font-weight: $f-weight
+		src: url($f-url) format('woff2')
+
+@include font('Josefin', normal, 200, '../fonts/JosefinSans-Thin.ttf')
+@include font('Josefin', normal, 400, '../fonts/JosefinSans-Regular.ttf')
+@include font('Josefin', normal, 500, '../fonts/JosefinSans-Medium.ttf')
+@include font('Josefin', normal, 600, '../fonts/JosefinSans-SemiBold.ttf')
+@include font('Josefin', normal, 700, '../fonts/JosefinSans-Bold.ttf')
+@include font('Josefin', normal, 800, '../fonts/JosefinSans-Black.ttf')
+@include font('Josefin', normal, 900, '../fonts/JosefinSans-ExtraBold.ttf')
+
+@include font('Josefin', italic, 200, '../fonts/JosefinSans-ThinItalic.ttf')
+@include font('Josefin', italic, 400, '../fonts/JosefinSans-Italic.ttf')
+@include font('Josefin', italic, 500, '../fonts/JosefinSans-MediumItalic.ttf')
+@include font('Josefin', italic, 600, '../fonts/JosefinSans-SemiBoldItalic.ttf')
+@include font('Josefin', italic, 700, '../fonts/JosefinSans-BoldItalic.ttf')
+@include font('Josefin', italic, 800, '../fonts/JosefinSans-BlackItalic.ttf')
+@include font('Josefin', italic, 900, '../fonts/JosefinSans-ExtraBoldItalic.ttf')
+

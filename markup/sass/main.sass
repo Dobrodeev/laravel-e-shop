@@ -1,0 +1,812 @@
+@import vars
+@import fonts
+@import libs
+
+//default setting
+
+::placeholder
+	color: #666
+
+::selection
+	background-color: $accent
+	color: #fff
+ul
+	list-style: none
+	margin: 0
+	padding: 0
+
+input, textarea
+	outline: none
+	&:focus:required:invalid
+		border-color: red
+	&:required:valid
+		border-color: green
+
+body
+	font-size: 16px
+	min-width: 320px
+	position: relative
+	line-height: normal
+	overflow-x: hidden
+	font-family: "Josefin"
+	color: $txt
+img
+	max-width: 100%
+	height: auto
+	object-fit: cover
+a
+	text-decoration: none!important
+	transition: .3s
+	text-transform: uppercase
+button
+	outline: 1px solid transparent
+	border: 1px solid transparent
+	&:hover
+		border: 1px solid transparent
+		outline: 1px solid transparent
+	&:focus
+		border: 1px solid transparent
+		outline: 1px solid transparent
+.container
+	max-width: 1180px
+.searchForm
+	display: none
+	input
+		background-color: transparent
+		width: 90%
+		max-width: 800px
+		height: 60px
+		padding-left: 30px
+		color: #fff
+		border: 2px solid #fff
+		border-radius: 35px
+		&::placeholder
+			color: #fff
+			font-size: 12px
+			text-transform: uppercase
+	.container
+		display: flex
+		justify-content: center
+		align-items: start
+.fancybox-content
+	background-color: transparent
+	width: 100%
+.mobile__mnu
+	display: none
+	.toggle_mnu
+		display: flex
+		flex-direction: column
+		align-items: flex-end
+		justify-content: center
+		transition: .3s
+		span
+			width: 32px
+			height: 3px
+			background-color: $txt
+			margin-bottom: 5px
+			transition: .3s
+	.on
+		span:nth-child(1)
+			transform: rotate(45deg) translate(6px,2px)
+		span:nth-child(2)
+			background-color: transparent
+		span:nth-child(3)
+			transform: rotate(-45deg) translate(9px,-6px)
+.btn
+	width: 180px
+	height: 49px
+	display: flex
+	justify-content: center
+	align-items: center
+	font-weight: 700
+	font-size: 12px
+	color: $txt
+	text-transform: uppercase
+	background-color: #fff
+	transition: .3s
+	&:hover
+		color: $alt
+		border: 1px solid $grn
+		border-radius: 2px
+	&__button
+		background-color: $grn
+		color: #fff
+.breadcrumb
+	padding-top: 20px
+	padding-bottom: 20px
+	a
+		display: flex
+		align-items: center
+		text-transform: none
+		font-size: 14px
+		color: #333
+		&:hover
+			color: #333
+		svg
+			margin-right: 5px
+.product
+	&__conter
+		display: flex
+		align-items: center
+		margin-right: 20px
+		border: 1px solid #C1C1C1
+		padding: 0 15px
+		color: #333
+		button
+			background: transparent
+		span
+			padding: 0 10px
+.cart
+	max-width: 280px
+	margin-bottom: 20px
+	&__middle
+		max-width: 380px
+		.cart__img
+			img
+				width: 100%
+	&__img
+		position: relative
+		border: 1px solid #C1C1C1
+		span
+			position: absolute
+			top: 0
+			right: 0
+			width: 70px
+			height: 30px
+			background-color: $alt
+			display: flex
+			justify-content: center
+			align-items: center
+			color: #fff
+			font-size: 12px
+			font-weight: bold
+	&__title
+		padding-top: 14px
+		padding-bottom: 7px
+		font-size: 14px
+		font-weight: bold
+		text-transform: uppercase
+	&__price
+		display: flex
+		justify-content: space-between
+		align-items: center
+	&__sale
+		padding-bottom: 10px
+		span
+			padding-right: 5px
+			color: $txt
+			font-weight: bold
+			&:first-child
+				color: #747474
+				text-decoration: line-through
+	&__save
+		font-size: 12px
+		font-weight: bold
+		color: $alt
+	&__bag
+		display: flex
+		align-items: end
+		flex-direction: column
+		img
+			max-width: 24px
+			height: 24px
+			margin-bottom: 7px
+		span
+			font-size: 10px
+			color: $grn
+			font-weight: bold
+//default setting end
+
+/*header start*/
+.header
+	&__wrapper
+		display: flex
+		justify-content: space-between
+		align-items: center
+		padding: 10px 10px
+	&__about
+		display: flex
+		align-items: center
+		&-link
+			color: $txt
+			font-size: 12px
+			padding-right: 30px
+			&:hover
+				color: $alt
+		&-list
+			display: flex
+			li
+				margin-right: 20px
+				transition: .3s
+				&:hover
+					transform: scale(1.1)
+	&__bar
+		display: flex
+		li
+			margin-right: 20px
+			display: flex
+			align-items: center
+			transition: .3s
+			&:hover
+				transform: scale(1.1)
+			&:last-child
+				margin-right: 0
+		&-link
+			font-size: 12px
+			color: $txt
+			&:hover
+				color: $alt
+			&:first-child
+				padding-top: 3px
+		.chevron
+			margin-left: 5px
+	&__wrapp
+		background-color: #F2F2F2
+		&-btn
+			display: flex
+			justify-content: flex-end
+	&__list
+		display: flex
+		justify-content: space-between
+		align-items: center
+		padding-top: 8px
+		padding-bottom: 10px
+		&-link
+			font-size: 11px
+			color: $grn
+			font-weight: 700
+			&:hover
+				color: $alt
+	&__btn
+		display: flex
+		justify-content: center
+		align-items: center
+		background-color: #E6E6E6
+		color: $grn
+		font-size: 11px
+		width: 144px
+		img
+			margin-left: 5px
+		&:hover
+			color: $alt
+/*header end*/
+
+/*section start*/
+.section
+	&__title
+		font-size: 36px
+		color: #2F5846
+		margin-bottom: 30px
+	&__subtitle
+		color: #000
+	&__page
+		padding-bottom: 90px!important
+		.about__logo
+			top: 30px
+		.about__wrapper
+			padding-top: 50px!important
+
+.offer
+	display: flex
+	background-color: #39634D
+	&__content
+		width: 40%
+		background-image: url(../img/offer.jpg)
+		background-repeat: no-repeat
+		background-position: center center
+		padding-top: 280px
+		padding-left: 20%
+	&__title
+		color: #fff
+		font-size: 32px
+		line-height: 32px
+	&__subtitle
+		color: #fff
+		font-size: 14px
+		line-height: 19px
+		padding: 25px 0
+	&__slider
+		width: 60%
+		img
+			width: 100%
+			height: 650px
+	.owl-nav
+		position: absolute
+		top: 50px
+		left: -388px
+		.owl-next
+			margin-left: 10px
+	.owl-dots
+		display: none
+
+.sale
+	padding-top: 60px
+	&__wrapper
+		display: flex
+		justify-content: flex-end
+	&__slider
+		padding-left: 20%
+	.owl-nav
+		position: absolute
+		top: 120px
+		right: 9%
+		.owl-prev
+			display: none
+	.toggle
+		margin-left: 40px
+		cursor: pointer
+	.toggle__wrapp
+		font-size: 12px
+		text-transform: uppercase
+		.work_arrow
+			transition: .3s
+			&.active
+				transform: rotate(180deg)
+	.toggle__wrapper
+		display: none
+		padding: 15px
+		position: absolute
+		background-color: #fff
+		z-index: 2
+		cursor: pointer
+		width: 110px
+		span
+			display: flex
+			padding: 5px 0
+			transition: .3s
+			font-size: 10px
+			&:hover
+				color: $grn
+	
+.collections
+	padding-top: 60px
+	&__cart
+		position: relative
+		display: flex
+		justify-content: center
+		align-items: center
+		cursor: pointer
+		margin-bottom: 20px
+		overflow: hidden
+		transition: .3s ease-in
+		&:hover
+			.collections__wrapper
+				opacity: 1
+				transition: .3s ease-in-out
+			.collections__title
+				opacity: 0
+				transition: .3s ease-in-out
+			img
+				transform: scale(1.2)
+				transition: .3s ease-in-out
+		img
+			width: 100%
+	&__title 
+		position: absolute
+		margin: 0 auto
+		font-size: 36px
+		color: #fff
+		font-weight: bold
+		text-transform: uppercase
+	&__wrapper
+		position: absolute
+		width: 100%
+		height: 100%
+		background: rgba(51, 51, 51, 0.5)
+		opacity: 0
+		display: flex
+		justify-content: center
+		align-items: center
+		flex-direction: column
+	&__hover
+		font-size: 36px
+		color: #fff
+		font-weight: bold
+		text-transform: uppercase
+	&__text
+		color: #fff
+		font-size: 14px
+		padding: 15px 20px 10px 20px
+	&__btn
+		margin-top: 10px
+
+.category
+	padding-top: 60px
+	img
+		width: 100%
+	&__title
+		color: $txt
+		font-weight: bold
+		padding-top: 15px
+		padding-bottom: 12px
+		font-size: 14px
+		text-transform: uppercase
+
+.about
+	position: relative
+	padding-bottom: 180px
+	padding-top: 90px
+	&__logo
+		position: absolute
+		top: -100px
+		right: 0
+	&__wrapp
+		position: relative
+	&__shiba
+		position: absolute
+		bottom: -80px
+		right: -80px
+		width: 380px
+	&__wrapper
+		padding-top: 120px
+		padding-left: 40px
+	&__gallery
+		margin-top: 40px
+		img
+			margin-bottom: 20px
+	&__text
+		span
+			color: $grn
+			font-weight: bold
+
+.instagram
+	position: relative
+	&__hash
+		position: absolute
+		top: -30px
+		text-align: center
+		padding-left: 50px
+		font-size: 100px
+		color: #333
+		opacity: 0.1
+		font-weight: bold
+		text-transform: uppercase
+	&__slider
+		margin-top: 30px
+		.item
+			width: 380px
+			height: 380px
+		.owl-nav
+			position: absolute
+			left: 6%
+			top: 45%
+			display: flex
+			justify-content: space-between
+			width: 88%
+		.owl-prev
+			transform: rotate(180deg)
+
+.contact
+	padding-top: 90px
+	padding-bottom: 90px
+
+.form
+	&__title
+		padding-top: 30px
+		p
+			font-weight: bold
+			color: #000
+			margin-bottom: 20px
+		span
+			text-transform: uppercase
+			padding-bottom: 30px
+		a
+			margin-right: 15px
+	input
+		width: 100%
+		height: 49px
+		border: 1px solid #C4C4C4
+		font-size: 14px
+		padding-left: 20px
+		margin-bottom: 20px
+		&::place-holder
+			color: #747474
+	textarea
+		width: 100%
+		font-size: 14px
+		border: 1px solid #C4C4C4
+		height: 119px
+		resize: none
+		padding-left: 20px
+		padding-top: 20px
+		&::place-holder
+			color: #747474
+	&__btn
+		margin: 0 auto
+
+.terms
+	padding-top: 60px
+	padding-bottom: 90px
+	span
+		text-transform: uppercase
+		color: #2F5846
+	p
+		text-indent: 10px
+		font-weight: 600
+		color: #333
+
+.shipping
+	padding-top: 60px
+	padding-bottom: 90px
+	p
+		span
+			color: $alt
+	.work_nav
+		border-top: 1px solid #C4C4C4
+		padding: 20px 0
+		display: flex
+		justify-content: space-between
+		align-items: center
+	.work_arrow
+		&.active
+			transition: .5s
+			transform: rotate(180deg)
+	.work_title
+		text-transform: uppercase
+		color: $grn
+		cursor: pointer
+	.grn
+		color: $grn
+
+.inspiration
+	margin-top: 100px
+	.owl-nav
+		position: absolute
+		bottom: 40px
+		width: 100%
+		padding: 0 5% 
+		display: flex
+		justify-content: space-between
+		align-items: center
+		.owl-prev
+			transform: rotate(180deg)
+
+.product
+	padding-top: 60px
+	&__img
+		margin-bottom: 20px
+	&__carousel
+		margin-bottom: 20px
+		.owl-nav
+			position: absolute
+			width: 100%
+			top: 40%
+			display: flex
+			justify-content: space-between
+			.owl-prev
+				transform: rotate(180deg)
+	&__title
+		font-size: 24px
+		text-transform: uppercase
+		color: $grn
+		font-weight: bold
+	&__price
+		display: flex
+		padding-top: 20px
+		padding-bottom: 10px
+		&-sell
+			padding-right: 15px
+			text-decoration-line: line-through
+			font-size: 24px
+			color: #747474
+			font-weight: 400
+		&-last
+			font-size: 24px
+			font-weight: bold
+			color: #333333
+	&__sale
+		font-size: 12px
+		font-weight: bold
+		color: $alt
+		margin-bottom: 30px
+	&__form
+		padding-top: 30px
+		padding-bottom: 40px
+		display: flex
+	
+	.tabs_wrapp
+		display: flex
+		.tab
+			font-size: 12px
+			text-transform: uppercase
+			margin-right: 20px
+			margin-bottom: 30px
+			cursor: pointer
+			&.active
+				color: $grn
+	.tab_content
+		.tab_item
+			p
+				margin-bottom: 32px
+			a
+				font-size: 16px
+				text-transform: none
+				color: $grn!important
+				&:hover
+					color: $grn!important
+
+.productList
+	padding-top: 90px
+	padding-bottom: 90px
+
+// /* NAZAR */ //
+
+.bag
+	padding-bottom: 60px
+	
+.total
+	border: 1px solid #C4C4C4
+	width: calc(100% - 25px)
+	&_top
+		background: #F5F5F5
+		border-bottom: 1px solid #C4C4C4
+		font-size: 16px
+		text-transform: uppercase
+		height: 60px
+		padding-left: 35px
+		display: flex
+		align-items: center
+	&_item
+		border-bottom: 1px solid #C4C4C4
+		display: flex
+		align-items: center
+		width: 100%
+		min-height: 120px
+		padding-right: 30px
+		padding-left: 35px
+		padding-top: 40px
+		padding-bottom: 30px
+	&_left
+		width: 40%
+	&_name
+		font-weight: 700
+	&_sub
+		font-weight: 700
+	&_choose
+		&-text
+			display: flex
+			flex-direction: column
+			line-height: 1.2
+			span + span
+				margin-top: 5px
+		&-title
+			margin-top: 20px
+			color: $grn
+			font-weight: bold
+			margin-bottom: 10px
+		&-input
+			margin-bottom: 10px
+		&-reload
+			margin-left: auto
+			border: 1px solid #C4C4C4
+			width: 50px
+			height: 50px
+			display: flex
+			align-items: center
+			justify-content: center
+			cursor: pointer
+			svg
+				max-width: 100%
+				max-height: 100%
+	&_bottom
+		min-height: 120px
+		display: flex
+		align-items: center
+		justify-content: center
+		.btn__button
+			width: 300px
+			height: 50px
+	&--checkout
+		.total
+			&_bottom
+				min-height: 0
+				padding-bottom: 40px
+			&_item
+				justify-content: space-between
+				min-height: 60px
+				padding: 15px 35px
+			&_left, &_center, &_right
+				width: calc(100% / 3)
+			&_right
+				margin-left: auto
+				text-align: right
+			&_center
+				text-align: center
+	&_pay
+		display: flex
+		flex-direction: column
+		padding: 25px 35px
+		&-item
+			display: flex
+			align-items: center
+			span
+				margin-left: 8px
+	&_check
+		margin-top: 20px
+		span
+			margin-left: 8px
+			a
+				text-decoration: underline!important
+				color: $grn
+				text-transform: none
+			b
+				color: $alt
+			
+.input
+	&_custom
+		span
+			margin-bottom: 4px
+			b
+				color: $alt
+		select, input, textarea
+			border: 1px solid #C4C4C4
+			height: 50px
+			width: 100%
+			padding: 0 20px
+			cursor: pointer
+			&:focus
+				outline: 0
+
+.checkout
+	&_top
+		border-top: 3px solid $grn
+		height: 60px
+		display: flex
+		align-items: center
+		padding-left: 30px
+		background: #F5F5F5
+		margin-bottom: 30px
+		a
+			color: $grn
+			text-transform: none
+			margin-left: 7px
+	&_code
+		display: flex
+		margin-bottom: 60px
+	&_input
+		max-width: 100%
+		width: 360px
+		margin-right: 33px
+	&_address
+		text-transform: uppercase
+		color: $grn
+		margin-bottom: 20px
+	&_inputs
+		&-item
+			display: flex
+			justify-content: space-between
+			margin-bottom: 20px
+			textarea
+				height: 95px
+				resize: none
+			.input_custom
+				width: calc(100% / 2 - 10px)
+				&.w-100
+					width: 100%
+/*section start*/
+
+/*footer start*/
+.footer
+	background-color: $grn
+	padding: 27px 0
+	&__edit
+		display: flex
+		flex-direction: column
+		color: #fff
+		font-size: 14px
+	&__nav
+		height: 100%
+		&-menu
+			display: flex
+			justify-content: space-between
+			align-items: center
+			height: 100%
+		&-link
+			color: #fff
+			font-size: 14px
+			text-transform: none
+			&:hover
+				color: #fff
+/*footer end*/
+
+@import media
