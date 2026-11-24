@@ -1,0 +1,88 @@
+/* Дополнения к вёрстке для динамических частей магазина */
+
+/* Кнопка «Add To Bag» в карточке: выглядит как исходный div */
+.cart__bag-form { margin: 0; }
+button.cart__bag {
+	background: none;
+	border: 0;
+	padding: 0;
+	font: inherit;
+	color: inherit;
+	cursor: pointer;
+}
+.cart__bag--disabled { opacity: .5; cursor: default; }
+
+/* Счётчик на иконке корзины в шапке */
+.header__bag { position: relative; display: inline-block; }
+.header__bag-count {
+	position: absolute;
+	top: -8px;
+	right: -10px;
+	min-width: 18px;
+	height: 18px;
+	padding: 0 4px;
+	border-radius: 9px;
+	background: #2F5846;
+	color: #fff;
+	font-size: 11px;
+	line-height: 18px;
+	text-align: center;
+}
+
+/* Уведомления */
+.flash {
+	margin: 16px auto 0;
+	padding: 12px 16px;
+	max-width: 1110px;
+	border: 1px solid #2F5846;
+	color: #2F5846;
+	background: #f3f7f5;
+}
+.flash--error { border-color: #b3261e; color: #b3261e; background: #fcf1f0; }
+
+/* Список товаров в корзине */
+.bag-items { margin-bottom: 40px; }
+.bag-item {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	padding: 20px 0;
+	border-bottom: 1px solid #e5e5e5;
+}
+.bag-item__img { flex: 0 0 90px; }
+.bag-item__img img { width: 90px; height: 90px; object-fit: cover; display: block; }
+.bag-item__info { flex: 1 1 auto; min-width: 0; }
+.bag-item__name { color: #2F5846; text-decoration: none; font-weight: 600; }
+.bag-item__price { margin-top: 6px; color: #666; }
+.bag-item__qty { display: flex; align-items: center; gap: 8px; }
+.bag-item__qty input { width: 56px; padding: 6px; border: 1px solid #ccc; text-align: center; font: inherit; }
+.bag-item__qty button,
+.bag-item__remove {
+	background: none;
+	border: 1px solid #2F5846;
+	color: #2F5846;
+	padding: 6px 10px;
+	cursor: pointer;
+	font: inherit;
+}
+.bag-item__remove { border: 0; text-decoration: underline; padding: 0; }
+.bag-item__total { flex: 0 0 80px; text-align: right; font-weight: 600; }
+.bag-empty { padding: 40px 0; }
+
+/* Количество на странице товара */
+.product__conter input {
+	width: 32px;
+	border: 0;
+	background: transparent;
+	text-align: center;
+	font: inherit;
+	-moz-appearance: textfield;
+}
+.product__conter input::-webkit-outer-spin-button,
+.product__conter input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+@media (max-width: 575px) {
+	.bag-item { flex-wrap: wrap; }
+	.bag-item__info { flex-basis: calc(100% - 110px); }
+	.bag-item__total { flex: 1 1 auto; }
+}

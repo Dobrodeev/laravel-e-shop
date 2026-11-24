@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Projects')
+@section('title', 'Shopping Bag')
 
 @section('content')
 <main class="main">
@@ -8,7 +8,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="breadcrumb col-12">
-						<a href="#">
+						<a href="{{ route('collection') }}">
 							<svg width="4" height="6" viewBox="0 0 4 6" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path fill-rule="evenodd" clip-rule="evenodd" d="M3.59857 5.86126C3.78355 5.67628 3.78355 5.37636 3.59857 5.19137L1.4072 3L3.59857 0.80863C3.78355 0.623644 3.78355 0.323724 3.59857 0.138739C3.41358 -0.0462461 3.11366 -0.0462461 2.92868 0.138739L0.402359 2.66505C0.217374 2.85004 0.217374 3.14996 0.402359 3.33495L2.92868 5.86126C3.11366 6.04625 3.41358 6.04625 3.59857 5.86126Z" fill="#666666"/>
 							</svg>
@@ -22,6 +22,40 @@
 		</section>
 		<section class="section bag">
 			<div class="container">
+				@if ($items->isEmpty())
+					<div class="row">
+						<div class="col-12 bag-empty">
+							Your bag is empty. <a href="{{ route('collection') }}">Continue shopping</a>
+						</div>
+					</div>
+				@else
+				<div class="row">
+					<div class="col-12 bag-items">
+						@foreach ($items as $item)
+							<div class="bag-item">
+								<a class="bag-item__img" href="{{ route('product', $item->product) }}">
+									<img src="{{ asset($item->product->image ?? 'img/cartmini.jpg') }}" alt="{{ $item->product->name }}">
+								</a>
+								<div class="bag-item__info">
+									<a class="bag-item__name" href="{{ route('product', $item->product) }}">{{ $item->product->name }}</a>
+									<div class="bag-item__price">${{ (float) $item->product->price }}</div>
+								</div>
+								<form class="bag-item__qty" action="{{ route('bag.update', $item->product) }}" method="POST">
+									@csrf
+									@method('PATCH')
+									<input type="number" name="qty" value="{{ $item->qty }}" min="0" max="{{ min(99, $item->product->stock) }}" aria-label="Quantity">
+									<button type="submit">update</button>
+								</form>
+								<form action="{{ route('bag.remove', $item->product) }}" method="POST">
+									@csrf
+									@method('DELETE')
+									<button type="submit" class="bag-item__remove">remove</button>
+								</form>
+								<div class="bag-item__total">${{ $item->total + 0 }}</div>
+							</div>
+						@endforeach
+					</div>
+				</div>
 				<div class="row">
 					<div class="col-lg-7 col-md-9 col-12">
 						<div class="total">
@@ -33,7 +67,7 @@
 									Subtotal
 								</div>
 								<div class="total_right total_sub">
-									$97
+									${{ $subtotal + 0 }}
 								</div>
 							</div>
 							<div class="total_item">
@@ -42,7 +76,7 @@
 								</div>
 								<div class="total_right total_choose">
 									<div class="total_choose-text">
-										<span>Flat rate: <b>5 $</b></span>
+										<span>Flat rate: <b>{{ $shipping + 0 }} $</b></span>
 										<span>Shipping options will be updated during checkout</span>
 									</div>
 									<div class="total_choose-title">
@@ -88,17 +122,18 @@
 									Total
 								</div>
 								<div class="total_right total_sub">
-									$102
+									${{ $total + 0 }}
 								</div>
 							</div>
 							<div class="total_bottom">
 								<div class="total_btn">
-									<a href="" class="btn btn__button">checkout</a>
+									<a href="{{ route('checkout') }}" class="btn btn__button">checkout</a>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+				@endif
 			</div>
 		</section>
 	</main>

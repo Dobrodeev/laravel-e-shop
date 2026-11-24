@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
@@ -14,7 +15,10 @@ Route::get('/product/{product}', [ProductController::class, 'show'])->name('prod
 
 Route::view('/about', 'pages.about')->name('about');
 Route::view('/contact', 'pages.contact')->name('contact');
-Route::view('/bag', 'pages.bag')->name('bag');
+Route::get('/bag', [CartController::class, 'index'])->name('bag');
+Route::post('/bag/{product}', [CartController::class, 'add'])->name('bag.add');
+Route::patch('/bag/{product}', [CartController::class, 'update'])->name('bag.update');
+Route::delete('/bag/{product}', [CartController::class, 'remove'])->name('bag.remove');
 Route::view('/checkout', 'pages.checkout')->name('checkout');
 Route::view('/shipping', 'pages.shipping')->name('shipping');
 Route::view('/returns', 'pages.returns')->name('returns');

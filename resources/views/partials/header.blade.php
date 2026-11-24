@@ -28,7 +28,7 @@
 					<ul class="header__bar">
 						<li><a class="header__bar-link" href="#">USD<img class="chevron" src="{{ asset('img/icon/chevron-down.svg') }}" alt=""></a></li>
 						<li><a href="#search" class="fancybox"><img src="{{ asset('img/icon/search.svg') }}" alt=""></a></li>
-						<li><a href="{{ route('bag') }}"><img src="{{ asset('img/icon/shopping-cart.svg') }}" alt=""></a></li>
+						<li><a href="{{ route('bag') }}" class="header__bag"><img src="{{ asset('img/icon/shopping-cart.svg') }}" alt="Shopping bag">@if ($cartCount > 0)<span class="header__bag-count">{{ $cartCount }}</span>@endif</a></li>
 						<li><a href="#"><img src="{{ asset('img/icon/globe.svg') }}" alt=""><img class="chevron" src="{{ asset('img/icon/chevron-down.svg') }}" alt=""></a></li>
 					</ul>
 				</div>

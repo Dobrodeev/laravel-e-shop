@@ -24,9 +24,18 @@
 				</div>
 			@endif
 		</div>
-		<div class="cart__bag">
-			<img src="{{ asset('img/icon/plus.svg') }}" alt="">
-			<span>Add To Bag</span>
-		</div>
+		@if ($product->stock > 0)
+			<form action="{{ route('bag.add', $product) }}" method="POST" class="cart__bag-form">
+				@csrf
+				<button type="submit" class="cart__bag">
+					<img src="{{ asset('img/icon/plus.svg') }}" alt="">
+					<span>Add To Bag</span>
+				</button>
+			</form>
+		@else
+			<div class="cart__bag cart__bag--disabled">
+				<span>Out of stock</span>
+			</div>
+		@endif
 	</div>
 </div>

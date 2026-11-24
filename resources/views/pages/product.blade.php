@@ -43,16 +43,17 @@
 								Save Up To ${{ (float) $product->discount }}
 							</div>
 						@endif
-						<div class="product__form">
-							<div class="product__conter">
-								<button>-</button>
-								<span>1</span>
-								<button>+</button>
+						<form class="product__form" action="{{ route('bag.add', $product) }}" method="POST">
+							@csrf
+							<div class="product__conter" data-qty>
+								<button type="button" data-qty-step="-1">-</button>
+								<input type="number" name="qty" value="1" min="1" max="{{ max(1, min(99, $product->stock)) }}" aria-label="Quantity">
+								<button type="button" data-qty-step="1">+</button>
 							</div>
-							<button class="btn btn__button" @disabled($product->stock < 1)>
+							<button type="submit" class="btn btn__button" @disabled($product->stock < 1)>
 								{{ $product->stock > 0 ? 'add to bag' : 'out of stock' }}
 							</button>
-						</div>
+						</form>
 						<div class="wrapper">
 							<div class="tabs_wrapp">
 								<div class="tab active">description</div>
@@ -94,3 +95,17 @@
 		@endif
 	</main>
 @endsection
+
+@push('scripts')
+<script>
+	document.querySelectorAll('[data-qty]').forEach(function (box) {
+		var input = box.querySelector('input');
+		box.querySelectorAll('[data-qty-step]').forEach(function (btn) {
+			btn.addEventListener('click', function () {
+				var v = (parseInt(input.value, 10) || 1) + parseInt(btn.dataset.qtyStep, 10);
+				input.value = Math.min(Math.max(v, +input.min), +input.max);
+			});
+		});
+	});
+</script>
+@endpush
