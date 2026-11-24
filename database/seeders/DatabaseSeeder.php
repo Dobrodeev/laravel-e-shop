@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,5 +13,14 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             ProductSeeder::class,
         ]);
+
+        // Тестовый администратор — только для локальной разработки.
+        // На проде: php artisan shop:admin you@example.com
+        if (app()->environment('local')) {
+            $admin = User::firstOrNew(['email' => 'admin@example.com']);
+            $admin->fill(['name' => 'Admin', 'password' => 'password']);
+            $admin->is_admin = true;
+            $admin->save();
+        }
     }
 }

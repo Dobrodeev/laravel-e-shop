@@ -11,6 +11,22 @@ class Order extends Model
 {
     use HasFactory;
 
+    public const STATUSES = [
+        'pending' => 'Pending',
+        'paid' => 'Paid',
+        'shipped' => 'Shipped',
+        'completed' => 'Completed',
+        'cancelled' => 'Cancelled',
+    ];
+
+    public const STATUS_COLORS = [
+        'pending' => 'warning',
+        'paid' => 'info',
+        'shipped' => 'primary',
+        'completed' => 'success',
+        'cancelled' => 'danger',
+    ];
+
     public const PAYMENT_METHODS = [
         'cod' => 'Cash on delivery',
         'bank_transfer' => 'Bank transfer',
@@ -36,6 +52,24 @@ class Order extends Model
     {
         static::creating(function (Order $order) {
             $order->number ??= static::generateNumber();
+        });
+
+        // Отмена заказа возвращает товары на склад. Из «cancelled» обратно не переводим:
+        // повторное списание могло бы увести остаток в минус.
+        static::updating(function (Order $order) {
+            if (! $order->isDirty('status')) {
+                return;
+            }
+
+            if ($order->getOriginal('status') === 'cancelled') {
+                throw new \DomainException('A cancelled order cannot be reopened.');
+            }
+
+            if ($order->status === 'cancelled') {
+                foreach ($order->items()->whereNotNull('product_id')->get() as $item) {
+                    Product::whereKey($item->product_id)->increment('stock', $item->qty);
+                }
+            }
         });
     }
 

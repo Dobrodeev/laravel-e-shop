@@ -47,6 +47,17 @@ return [
             'report' => false,
         ],
 
+        // Загрузки из админки кладутся прямо в public/, чтобы витрина отдавала их через asset()
+        // так же, как картинки из вёрстки (img/...). Путь в БД: uploads/products/xxx.jpg
+        'site' => [
+            'driver' => 'local',
+            'root' => public_path(),
+            'url' => rtrim(env('APP_URL', 'http://localhost'), '/'),
+            'visibility' => 'public',
+            'throw' => false,
+            'report' => false,
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
