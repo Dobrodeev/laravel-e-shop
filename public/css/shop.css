@@ -86,3 +86,10 @@ button.cart__bag {
 	.bag-item__info { flex-basis: calc(100% - 110px); }
 	.bag-item__total { flex: 1 1 auto; }
 }
+
+/* Оформление заказа */
+.field-error { display: block; margin-top: 4px; color: #b3261e; font-size: 12px; }
+.input_custom .is-invalid { border-color: #b3261e !important; }
+.checkout-errors { margin-bottom: 24px; }
+.total_btn button.btn { border: 0; cursor: pointer; font: inherit; }
+.order-success { margin-bottom: 32px; line-height: 1.6; }

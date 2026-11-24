@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CatalogController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -19,7 +20,9 @@ Route::get('/bag', [CartController::class, 'index'])->name('bag');
 Route::post('/bag/{product}', [CartController::class, 'add'])->name('bag.add');
 Route::patch('/bag/{product}', [CartController::class, 'update'])->name('bag.update');
 Route::delete('/bag/{product}', [CartController::class, 'remove'])->name('bag.remove');
-Route::view('/checkout', 'pages.checkout')->name('checkout');
+Route::get('/checkout', [CheckoutController::class, 'show'])->name('checkout');
+Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+Route::get('/order/{order}', [CheckoutController::class, 'success'])->name('checkout.success');
 Route::view('/shipping', 'pages.shipping')->name('shipping');
 Route::view('/returns', 'pages.returns')->name('returns');
 Route::view('/terms', 'pages.terms')->name('terms');
